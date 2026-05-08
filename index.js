@@ -1,8 +1,8 @@
 /**
- * =========================================================
+ * 
  * ALGORITMO DE COHEN - SUTHERLAND
  * Recorte de líneas
- * =========================================================
+ * 
  */
 
 /**
@@ -16,9 +16,9 @@ const ctx = canvas.getContext("2d");
  */
 let currentScene = 0;
 /**
- * =========================================================
+ * 
  * CONSTANTES BINARIAS
- * =========================================================
+ * 
  * Cada bit representa una región:
  * 
  * TOP    = 1000
@@ -32,9 +32,9 @@ const RIGHT  = 2;
 const BOTTOM = 4;
 const TOP    = 8;
 /**
- * =========================================================
+ * 
  * ESCENAS DE PRUEBA
- * =========================================================
+ * 
  * Cada objeto representa una línea distinta
  * para probar casos del algoritmo
  */
@@ -86,9 +86,9 @@ const scenes = [
 
 ];
 /**
- * =========================================================
+ * 
  * DIBUJAR VIEWPORT
- * =========================================================
+ * 
  */
 
 /**
@@ -111,3 +111,18 @@ function drawViewport(xmin, ymin, xmax, ymax) {
         ymax - ymin
     );
 }
+
+/**
+ * 
+ * DIBUJAR LÍNEAS
+ * 
+ */
+
+/**
+ * Dibuja una línea
+ * @param {number} x1 - coordenada inicial X
+ * @param {number} y1 - coordenada inicial Y
+ * @param {number} x2 - coordenada final X
+ * @param {number} y2 - coordenada final Y
+ * @param {string} color - color de la línea
+ */
