@@ -11,16 +11,7 @@
  */
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-function drawLine(x1, y1, x2, y2){
-
-    ctx.beginPath();
-
-    ctx.moveTo(x1, y1);
-
-    ctx.lineTo(x2, y2);
-
-    ctx.stroke();
-}
+    
 /**
  * Índice de la escena actual
  */
@@ -111,7 +102,7 @@ const scenes = [
 
 function drawViewport(xmin, ymin, xmax, ymax) {
 
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "blue";
     ctx.lineWidth = 2;
 
     ctx.strokeRect(
@@ -139,7 +130,6 @@ function drawViewport(xmin, ymin, xmax, ymax) {
 function drawLine(x1, y1, x2, y2, color) {
 
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
 
     ctx.beginPath();
 
@@ -180,11 +170,11 @@ function computeCode(x, y, xmin, ymin, xmax, ymax) {
     }
 
     if (y < ymin) {
-        code |= TOP;
+        code |= BOTTOM;
     }
 
     else if (y > ymax) {
-        code |= BOTTOM;
+        code |= TOP;
     }
 
     return code;
@@ -387,12 +377,15 @@ function renderScene() {
     /**
      * Dibujar línea original
      */
-    drawLine(
-        line.x1,
-        line.y1,
-        line.x2,
-        line.y2,
-        "gray"
+   ctx.lineWidth = 1;
+
+drawLine(
+    line.x1,
+    line.y1,
+    line.x2,
+    line.y2,
+    "rgba(0,0,0,0.35)"
+
     );
 
     /**
@@ -418,13 +411,15 @@ function renderScene() {
      */
     if (clipped.accepted) {
 
-        drawLine(
-            clipped.x1,
-            clipped.y1,
-            clipped.x2,
-            clipped.y2,
-            "red"
-        );
+       ctx.lineWidth = 3;
+
+drawLine(
+    clipped.x1,
+    clipped.y1,
+    clipped.x2,
+    clipped.y2,
+    "red"
+);
     }
 
     /**
