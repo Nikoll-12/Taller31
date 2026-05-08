@@ -126,3 +126,56 @@ function drawViewport(xmin, ymin, xmax, ymax) {
  * @param {number} y2 - coordenada final Y
  * @param {string} color - color de la línea
  */
+function drawLine(x1, y1, x2, y2, color) {
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+
+    ctx.stroke();
+}
+/**
+ * 
+ * COMPUTE CODE
+ * 
+ */
+
+/**
+ * Calcula el código binario de un punto
+ * respecto a la ventana de recorte
+ * 
+ * @param {number} x - coordenada X del punto
+ * @param {number} y - coordenada Y del punto
+ * @param {number} xmin - borde izquierdo
+ * @param {number} ymin - borde inferior
+ * @param {number} xmax - borde derecho
+ * @param {number} ymax - borde superior
+ * 
+ * @returns {number} código binario del punto
+ */
+function computeCode(x, y, xmin, ymin, xmax, ymax) {
+
+    let code = INSIDE;
+
+    if (x < xmin) {
+        code |= LEFT;
+    }
+
+    else if (x > xmax) {
+        code |= RIGHT;
+    }
+
+    if (y < ymin) {
+        code |= TOP;
+    }
+
+    else if (y > ymax) {
+        code |= BOTTOM;
+    }
+
+    return code;
+}
