@@ -11,6 +11,16 @@
  */
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+function drawLine(x1, y1, x2, y2){
+
+    ctx.beginPath();
+
+    ctx.moveTo(x1, y1);
+
+    ctx.lineTo(x2, y2);
+
+    ctx.stroke();
+}
 /**
  * Índice de la escena actual
  */
@@ -317,4 +327,109 @@ function cohenSutherland(
         x2,
         y2
     };
+}
+/**
+ * 
+ * RENDERIZAR ESCENA
+ * 
+ */
+
+/**
+ * Dibuja:
+ * - viewport
+ * - línea original
+ * - línea recortada
+ */
+
+function renderScene() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    /**
+     * Leer viewport desde HTML
+     */
+    const xmin = parseInt(
+        document.getElementById("xmin").value
+    );
+
+    const ymin = parseInt(
+        document.getElementById("ymin").value
+    );
+
+    const xmax = parseInt(
+        document.getElementById("xmax").value
+    );
+
+    const ymax = parseInt(
+        document.getElementById("ymax").value
+    );
+
+    /**
+     * Dibujar viewport
+     */
+    drawViewport(
+        xmin,
+        ymin,
+        xmax,
+        ymax
+    );
+
+    /**
+     * Obtener escena actual
+     */
+    const line = scenes[currentScene];
+
+    /**
+     * Dibujar línea original
+     */
+    drawLine(
+        line.x1,
+        line.y1,
+        line.x2,
+        line.y2,
+        "gray"
+    );
+
+    /**
+     * Aplicar Cohen-Sutherland
+     */
+    const clipped = cohenSutherland(
+
+        line.x1,
+        line.y1,
+
+        line.x2,
+        line.y2,
+
+        xmin,
+        ymin,
+
+        xmax,
+        ymax
+    );
+
+    /**
+     * Dibujar línea recortada
+     */
+    if (clipped.accepted) {
+
+        drawLine(
+            clipped.x1,
+            clipped.y1,
+            clipped.x2,
+            clipped.y2,
+            "red"
+        );
+    }
+
+    /**
+     * Mostrar información
+     */
+    document.getElementById("info").innerText =
+        scenes[currentScene].title;
 }
