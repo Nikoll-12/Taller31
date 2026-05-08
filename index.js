@@ -179,3 +179,142 @@ function computeCode(x, y, xmin, ymin, xmax, ymax) {
 
     return code;
 }
+/**
+ * 
+ * ALGORITMO DE COHEN-SUTHERLAND
+ * 
+ */
+
+/**
+ * Realiza el recorte de una línea
+ * utilizando Cohen-Sutherland
+ * 
+ * @param {number} x1 - coordenada inicial X
+ * @param {number} y1 - coordenada inicial Y
+ * @param {number} x2 - coordenada final X
+ * @param {number} y2 - coordenada final Y
+ * @param {number} xmin - borde izquierdo viewport
+ * @param {number} ymin - borde inferior viewport
+ * @param {number} xmax - borde derecho viewport
+ * @param {number} ymax - borde superior viewport
+ * 
+ * @returns {Object} línea recortada
+ */
+function cohenSutherland(
+    x1, y1,
+    x2, y2,
+    xmin, ymin,
+    xmax, ymax
+) {
+
+    let code1 = computeCode(x1, y1, xmin, ymin, xmax, ymax);
+    let code2 = computeCode(x2, y2, xmin, ymin, xmax, ymax);
+
+    let accept = false;
+
+    while (true) {
+
+        /**
+         * Ambos puntos dentro
+         */
+        if ((code1 | code2) === 0) {
+
+            accept = true;
+            break;
+        }
+
+        /**
+         * Ambos comparten región externa
+         */
+        else if (code1 & code2) {
+
+            break;
+        }
+
+        /**
+         * La línea debe recortarse
+         */
+        else {
+
+            let codeOut;
+
+            let x, y;
+
+            if (code1 !== 0) {
+                codeOut = code1;
+            } else {
+                codeOut = code2;
+            }
+
+            /**
+             * Intersección superior
+             */
+            if (codeOut & TOP) {
+
+                x = x1 + ((x2 - x1) * (ymin - y1)) / (y2 - y1);
+                y = ymin;
+            }
+
+            /**
+             * Intersección inferior
+             */
+            else if (codeOut & BOTTOM) {
+
+                x = x1 + ((x2 - x1) * (ymax - y1)) / (y2 - y1);
+                y = ymax;
+            }
+
+            /**
+             * Intersección derecha
+             */
+            else if (codeOut & RIGHT) {
+
+                y = y1 + ((y2 - y1) * (xmax - x1)) / (x2 - x1);
+                x = xmax;
+            }
+
+            /**
+             * Intersección izquierda
+             */
+            else if (codeOut & LEFT) {
+
+                y = y1 + ((y2 - y1) * (xmin - x1)) / (x2 - x1);
+                x = xmin;
+            }
+
+            /**
+             * Reemplazar punto externo
+             */
+            if (codeOut === code1) {
+
+                x1 = x;
+                y1 = y;
+
+                code1 = computeCode(
+                    x1, y1,
+                    xmin, ymin,
+                    xmax, ymax
+                );
+
+            } else {
+
+                x2 = x;
+                y2 = y;
+
+                code2 = computeCode(
+                    x2, y2,
+                    xmin, ymin,
+                    xmax, ymax
+                );
+            }
+        }
+    }
+
+    return {
+        accepted: accept,
+        x1,
+        y1,
+        x2,
+        y2
+    };
+}
