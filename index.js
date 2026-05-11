@@ -11,11 +11,6 @@
  */
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-    
-/**
- * Índice de la escena actual
- */
-let currentScene = 0;
 /**
  * 
  * CONSTANTES BINARIAS
@@ -128,7 +123,7 @@ function drawViewport(xmin, ymin, xmax, ymax) {
  * @param {string} color - color de la línea
  */
 function drawLine(x1, y1, x2, y2, color) {
-    
+
 
     ctx.strokeStyle = color;
 
@@ -419,49 +414,13 @@ for (let line of scenes) {
         );
     }
 }
-    }
 
-    /**
-     * Mostrar información
-     */
-    document.getElementById("info").innerText =
-        scenes[currentScene].title;
-}
-
-/**
- * NAVEGACIÓN
+     /**
+ * Mostrar información
  */
-
-/**
- * Escena siguiente
- */
-
-function nextScene() {
-
-    currentScene++;
-
-    if (currentScene >= scenes.length) {
-        currentScene = 0;
-    }
-
-    renderScene();
+document.getElementById("info").innerText =
+    "Visualización simultánea de todos los casos";
 }
-
-/**
- * Escena anterior
- */
-
-function previousScene() {
-
-    currentScene--;
-
-    if (currentScene < 0) {
-        currentScene = scenes.length - 1;
-    }
-
-    renderScene();
-}
-
 /**
  * INICIO
  */
