@@ -428,5 +428,3 @@ drawLine(
     document.getElementById("info").innerText =
         scenes[currentScene].title;
 }
-
-
