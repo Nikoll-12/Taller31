@@ -128,6 +128,7 @@ function drawViewport(xmin, ymin, xmax, ymax) {
  * @param {string} color - color de la línea
  */
 function drawLine(x1, y1, x2, y2, color) {
+    
 
     ctx.strokeStyle = color;
 
@@ -368,24 +369,21 @@ function renderScene() {
         xmax,
         ymax
     );
-
-    /**
-     * Obtener escena actual
-     */
-    const line = scenes[currentScene];
+/**
+ * Recorrer todas las escenas
+ */
+for (let line of scenes) {
 
     /**
      * Dibujar línea original
      */
-   ctx.lineWidth = 1;
-
-drawLine(
-    line.x1,
-    line.y1,
-    line.x2,
-    line.y2,
-    "rgba(0,0,0,0.35)"
-
+    drawLine(
+        line.x1,
+        line.y1,
+        line.x2,
+        line.y2,
+        "rgba(0,0,0,0.35)",
+        1
     );
 
     /**
@@ -411,15 +409,16 @@ drawLine(
      */
     if (clipped.accepted) {
 
-       ctx.lineWidth = 3;
-
-drawLine(
-    clipped.x1,
-    clipped.y1,
-    clipped.x2,
-    clipped.y2,
-    "red"
-);
+        drawLine(
+            clipped.x1,
+            clipped.y1,
+            clipped.x2,
+            clipped.y2,
+            "red",
+            3
+        );
+    }
+}
     }
 
     /**
@@ -428,3 +427,43 @@ drawLine(
     document.getElementById("info").innerText =
         scenes[currentScene].title;
 }
+
+/**
+ * NAVEGACIÓN
+ */
+
+/**
+ * Escena siguiente
+ */
+
+function nextScene() {
+
+    currentScene++;
+
+    if (currentScene >= scenes.length) {
+        currentScene = 0;
+    }
+
+    renderScene();
+}
+
+/**
+ * Escena anterior
+ */
+
+function previousScene() {
+
+    currentScene--;
+
+    if (currentScene < 0) {
+        currentScene = scenes.length - 1;
+    }
+
+    renderScene();
+}
+
+/**
+ * INICIO
+ */
+
+renderScene();
