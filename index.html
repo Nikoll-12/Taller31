@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+       Taller Cohen-Sutherland
+    </title>
+     <style>
+
+        body{
+
+            font-family: 'Times New Roman', Times, serif;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+          canvas{
+
+            border: 1px solid rgb(192, 64, 154);
+        }
+
+        .panel{
+
+            display: flex;
+
+            gap: 15px; 
+
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+        .botones{
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+        input{
+
+            width: 70px;
+        }
+</style>
+
+</head>
+
+<body>
+
+    <h2>
+        Algoritmo de Cohen-Sutherland
+    </h2>
+
+    <!-- Coordenadas de la ventana de recorte -->
+
+    <div class="panel">
+
+        <label>
+
+            xmin
+
+            <input
+                type="number"
+                id="xmin"
+                value="150"
+            >
+
+        </label>
+
+        <label>
+              ymin
+
+            <input
+                type="number"
+                id="ymin"
+                value="150"
+            >
+
+        </label>
+
+        <label>
+
+            xmax
+
+            <input
+                type="number"
+                id="xmax"
+                value="450"
+            >
+
+        </label>
+
+        <label>
+
+            ymax
+
+            <input
+                type="number"
+                id="ymax"
+                value="450"
+            >
+
+        </label>
+
+    </div>
+ <!-- Navegación entre escenas -->
+
+    <div class="botones">
+
+        <button onclick="previousScene()">
+
+            ← Anterior
+
+        </button>
+
+        <button onclick="renderScene()">
+
+            Aplicar
+
+        </button>
+
+        <button onclick="nextScene()">
+
+            Siguiente →
+
+        </button>
+
+    </div>
+
+    <!-- Canvas principal -->
+
+    <canvas
+        id="canvas"
+        width="700"
+        height="600">
+    </canvas>
+
+    <!-- Información de la escena -->
+
+    <p id="info"></p>
+
+    <script src="6014390_v1.js">
+        
+    </script>
+
+</body>
+
+</html>
+
